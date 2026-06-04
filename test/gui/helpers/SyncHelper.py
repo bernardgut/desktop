@@ -272,7 +272,7 @@ def wait_for_resource_to_sync(
     synced = wait_for(
         lambda: has_sync_pattern(patterns, resource),
         timeout - initial_timeout,
-    )
+        )
 
     messages = read_and_update_socket_messages()
     messages = filter_messages_for_item(messages, resource)

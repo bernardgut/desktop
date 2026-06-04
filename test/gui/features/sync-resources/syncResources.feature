@@ -33,18 +33,17 @@ Feature: Syncing files
         And the folder "simple-folder" should exist on the file system
         And the folder "large-folder" should exist on the file system
 
-    @issue-9733 @skip
+    @issue-9733
     Scenario: Syncing a file from the server and creating a conflict
         Given user "Alice" has uploaded file with content "server content" to "/conflict.txt" in the server
         And user "Alice" has set up a client with default settings
-        And the user has paused the file sync
         And the user has changed the content of local file "conflict.txt" to:
             """
             client content
             """
         And user "Alice" has uploaded file with content "changed server content" to "/conflict.txt" in the server
         And the user has waited for "5" seconds
-        When the user resumes the file sync on the client
+        When the user waits for the files to sync
         And the user opens the activity tab
         And the user selects "Not Synced" tab in the activity
         Then the table of conflict warnings should include file "conflict.txt"
