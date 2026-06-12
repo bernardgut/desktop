@@ -1,7 +1,6 @@
 import os
 import platform
 import builtins
-import tempfile
 from tempfile import gettempdir
 from configparser import ConfigParser
 from pathlib import Path
@@ -31,7 +30,7 @@ def get_client_root_path():
 
 
 def get_config_home_linux():
-    return os.path.join(tempfile.gettempdir(), 'opencloudtest', '.config')
+    return os.path.join(gettempdir(), 'opencloudtest', '.config')
 
 
 def get_config_home_win():
@@ -65,7 +64,7 @@ CONFIG_ENV_MAP = {
     'localBackendUrl': 'BACKEND_HOST',
     'sync_timeout': 'SYNC_TIMEOUT',
     'clientRootSyncPath': 'CLIENT_ROOT_SYNC_PATH',
-    'tempFolderPath': 'TEMP_FOLDER_PATH',
+    'test_temp_dir': 'TEST_TEMP_DIR',
     'guiTestReportDir': 'GUI_TEST_REPORT_DIR',
     'record_video_on_failure': 'RECORD_VIDEO_ON_FAILURE',
 }
@@ -91,8 +90,8 @@ CONFIG = {
     'localBackendUrl': 'https://localhost:9200/',
     'sync_timeout': 60,
     'clientRootSyncPath': get_client_root_path(),
-    'tempFolderPath': os.path.join(get_client_root_path(), 'temp'),
     'guiTestReportDir': os.path.join(CURRENT_DIR.parent, 'reports'),
+    'test_temp_dir': os.path.join(get_client_root_path(), 'temp'),
     'record_video_on_failure': False,
     'syncConnectionName': 'Personal',
     ###############################
@@ -141,7 +140,7 @@ def normalize_configs():
         elif key in (
             'localBackendUrl',
             'clientRootSyncPath',
-            'tempFolderPath',
+            'test_temp_dir',
             'guiTestReportDir',
         ):
             # make sure there is always one trailing slash
