@@ -9,6 +9,7 @@ CURRENT_DIR = Path(__file__).resolve().parent
 APP_CONFIG_FILE = "opencloud.cfg"
 CUMULATIVE_APP_LOG_FILE = "opencloud.log"
 CURRENT_APP_LOG_FILE = "app.log"
+CRASH_LOG_FILE = "OpenCloud-crash.log"
 
 
 def is_windows():
@@ -82,6 +83,7 @@ DEFAULT_PATH_CONFIG = {
     'min_timeout': 5,
     'lowest_timeout': 1,
     'files_for_upload': os.path.join(CURRENT_DIR.parent, 'files-for-upload'),
+    'crash_file': os.path.join(gettempdir(), CRASH_LOG_FILE),
 }
 
 # mutable configs
@@ -173,6 +175,8 @@ def init_config():
     CONFIG['appLogFile'] = os.path.join(
         CONFIG["guiTestReportDir"], CUMULATIVE_APP_LOG_FILE
     )
+    # file to store cumulative app logs for the entire test run
+    CONFIG['crash_report_file'] = os.path.join(CONFIG["guiTestReportDir"], 'crash.log')
     # create report dir if it not exist
     if not os.path.exists(CONFIG['guiTestReportDir']):
         os.makedirs(CONFIG['guiTestReportDir'])
